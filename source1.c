@@ -1,99 +1,239 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
 #include <conio.h>
 #include <Windows.h>
+#define RANGE 10
 
-int pan[10][10];
 int main()
 {
-	int x = 0, y = 0;
-	pan[x][y] = 1;
-	int key;
-	int i = 0;
+	srand((unsigned)time(NULL));
 
-	for (int i = 0; i < 10; i++)
+	int i, j, k, l, left_shot_count = 20, make_shot = 0;
+	int length = 0, width = 0;
+	int key;
+	char coordinate[10][10];
+	
+	printf(" ");
+
+	for (i = 0; i < RANGE; i++)
 	{
-		for (int j = 0; j < 10; j++)
+		printf("  %d", i);
+	}
+	printf(" ¡æWIDTH\n");
+	for (i = 0; i < RANGE; i++)
+	{
+		for (j = 0; j < RANGE + 1; j++)
 		{
-			printf("%d ", pan[i][j]);
+			printf(" ¦« ");
+		}
+		printf("\n%d  ", i);
+		k = i;
+		for (l = 0; l < RANGE; l++)
+		{
+			printf("%c  ", coordinate[k][l] = ' ');
 		}
 		printf("\n");
+
 	}
-	while (1)
+	printf("¡éLENGTH\n");
+	printf("Shooting start!\nIf you READY, press any ¡ç¡è¡æ¡é\n");
+
+	while ((width >= 0 && width < RANGE) && (length >= 0) && (length < RANGE))
 	{
-		if (_kbhit())
+		
+	AIM_POINT:
+		left_shot_count--;
+
+		int x_target = rand() % 6 + 2, y_target = rand() % 6 + 2;
+		coordinate[x_target][y_target] = 'V';
+
+		int wind = rand() % 4 - 2;
+
+		printf(" ");
+		
+		while (1)
 		{
-			key = _getch();
-			if (key == 224 || key == 0)
+			if (_kbhit())
 			{
 				key = _getch();
-				switch (key)
+				if (key == 224 || key == 0)
 				{
-				case 72:
-					if (x == 0)
-						break;
-					system("cls");
-					pan[x][y] = 0;
-					pan[x - 1][y] = 1;
-					x--;
-					for (int i = 0; i < 10; i++)
+					key = _getch();
+					switch (key)
 					{
-						for (int j = 0; j < 10; j++)
+					case 72:
+						if (length == 0)
+							break;
+						system("cls");
+						coordinate[length][width] = ' ';
+						coordinate[length - 1][width] = 'O';
+						length--;
+
+						if (wind > 0)
+							printf("East ¡æ %d (m/s)\n", wind);
+						else if (wind < 0)
+							printf("West ¡ç %0.0lf (m/s)\n", fabs(wind));
+						else
+							printf("No wind\n");
+
+						printf(" ");
+						for (i = 0; i < RANGE; i++)
 						{
-							printf("%d", pan[i][j]);
+							printf("  %d", i);
 						}
-						printf("\n");
-					}
-					break;
-				case 75:
-					if (y == 0)
+						printf(" ¡æWIDTH\n");
+						for (i = 0; i < RANGE; i++)
+						{
+							for (j = 0; j < RANGE + 1; j++)
+							{
+								printf(" ¦« ");
+							}
+							printf("\n%d  ", i);
+
+							k = i;
+							for (l = 0; l < RANGE; l++)
+							{
+								printf("%c  ", coordinate[k][l]);
+							}
+							printf("\n");
+						}
+						printf("¡éLENGTH\n");
 						break;
-					system("cls");
-					pan[x][y] = 0;
-					pan[x][y - 1] = 1;
-					y--;
-					for (int i = 0; i < 10; i++)
-					{
-						for (int j = 0; j < 10; j++)
+					case 75:
+						if (width == 0)
+							break;
+						system("cls");
+						coordinate[length][width] = ' ';
+						coordinate[length][width - 1] = 'O';
+						width--;
+
+						if (wind > 0)
+							printf("East ¡æ %d (m/s)\n", wind);
+						else if (wind < 0)
+							printf("West ¡ç %0.0lf (m/s)\n", fabs(wind));
+						else
+							printf("No wind\n");
+
+						printf(" ");
+						for (i = 0; i < RANGE; i++)
 						{
-							printf("%d", pan[i][j]);
+							printf("  %d", i);
 						}
-						printf("\n");
-					}
-					break;
-				case 77:
-					if (y == 9)
+						printf(" ¡æWIDTH\n");
+						for (i = 0; i < RANGE; i++)
+						{
+							for (j = 0; j < RANGE + 1; j++)
+							{
+								printf(" ¦« ");
+							}
+							printf("\n%d  ", i);
+
+							k = i;
+							for (l = 0; l < RANGE; l++)
+							{
+								printf("%c  ", coordinate[k][l]);
+							}
+							printf("\n");
+						}
+						printf("¡éLENGTH\n");
 						break;
-					system("cls");
-					pan[x][y] = 0;
-					pan[x][y + 1] = 1;
-					y++;
-					for (int i = 0; i < 10; i++)
-					{
-						for (int j = 0; j < 10; j++)
+					case 77:
+						if (width == 9)
+							break;
+						system("cls");
+						coordinate[length][width] = ' ';
+						coordinate[length][width + 1] = 'O';
+						width++;
+
+						if (wind > 0)
+							printf("East ¡æ %d (m/s)\n", wind);
+						else if (wind < 0)
+							printf("West ¡ç %0.0lf (m/s)\n", fabs(wind));
+						else
+							printf("No wind\n");
+
+						printf(" ");
+						for (i = 0; i < RANGE; i++)
 						{
-							printf("%d", pan[i][j]);
+							printf("  %d", i);
 						}
-						printf("\n");
-					}
-					break;
-				case 80:
-					if (x == 9)
+						printf(" ¡æWIDTH\n");
+						for (i = 0; i < RANGE; i++)
+						{
+							for (j = 0; j < RANGE + 1; j++)
+							{
+								printf(" ¦« ");
+							}
+							printf("\n%d  ", i);
+
+							k = i;
+							for (l = 0; l < RANGE; l++)
+							{
+								printf("%c  ", coordinate[k][l]);
+							}
+							printf("\n");
+						}
+						printf("¡éLENGTH\n");
 						break;
-					system("cls");
-					pan[x][y] = 0;
-					pan[x + 1][y] = 1;
-					x++;
-					for (int i = 0; i < 10; i++)
-					{
-						for (int j = 0; j < 10; j++)
+					case 80:
+						if (length == 9)
+							break;
+						system("cls");
+						coordinate[length][width] = ' ';
+						coordinate[length + 1][width] = 'O';
+						length++;
+						
+						if (wind > 0)
+							printf("East ¡æ %d (m/s)\n", wind);
+						else if (wind < 0)
+							printf("West ¡ç %0.0lf (m/s)\n", fabs(wind));
+						else
+							printf("No wind\n");
+
+						printf(" ");
+						for (i = 0; i < RANGE; i++)
 						{
-							printf("%d", pan[i][j]);
+							printf("  %d", i);
 						}
-						printf("\n");
+						printf(" ¡æWIDTH\n");
+						for (i = 0; i < RANGE; i++)
+						{
+							for (j = 0; j < RANGE + 1; j++)
+							{
+								printf(" ¦« ");
+							}
+							printf("\n%d  ", i);
+
+							k = i;
+							for (l = 0; l < RANGE; l++)
+							{
+								printf("%c  ", coordinate[k][l]);
+							}
+							printf("\n");
+						}
+						printf("¡éLENGTH\n");
+						break;
+					defualt:
+						return 0;
 					}
-					break;
 				}
+				else if(key==13)
+				break;
 			}
 		}
+		if (length == x_target && width + wind == y_target)
+		{
+			make_shot++;
+			printf("YOU MAKE THE %d  SHOT!!\n", make_shot);
+		}
+		else
+			printf("YOU MISS!!");
+		coordinate[length][width + wind] = ' ';
+		printf("\n\n%d left\n", left_shot_count);
+		if (left_shot_count == 0)
+			break;
 	}
+	return 0;
 }
